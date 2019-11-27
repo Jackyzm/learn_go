@@ -21,7 +21,9 @@
     "go.gocodeAutoBuild": false,
     "window.zoomLevel": 0,
     "cSpell.words": [
+        "bson",
         "gonic",
+        "mongodb",
         "swaggo"
     ]
     // "editor.formatOnSave": true,

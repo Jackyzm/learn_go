@@ -34,6 +34,21 @@
                     "500": {}
                 }
             }
+        },
+        "/user": {
+            "put": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "用户"
+                ],
+                "summary": "接口名称",
+                "responses": {
+                    "200": {},
+                    "500": {}
+                }
+            }
         }
     }
 }

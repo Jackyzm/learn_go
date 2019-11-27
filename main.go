@@ -8,14 +8,19 @@ import (
 
 	"github.com/gin-gonic/gin"
 
+	"learn_go/models"
 	"learn_go/routers"
 )
+
+func init() {
+	models.Setup()
+}
 
 func main() {
 	// Disable Console Color, you don't need console color when writing the logs to file.
 	gin.DisableConsoleColor()
 
-	t := time.Now().Format("2006-01-02 15:04:05") // 据说是go诞生时间 1-2-3-4-5
+	t := time.Now().Format("2006-01-02 15:04:05") // 据说是go诞生时间 6-1-2-3-4-5
 
 	// Logging to a file.
 	f, _ := os.Create(fmt.Sprintf("./log/gin-%s.log", t))

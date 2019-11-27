@@ -23,6 +23,8 @@ func GetRouters() {
 
 	router := gin.Default()
 
+	router.PUT("/user", AddUser)
+	
     route := router.Group("/api")
     {
         route.GET("/ping", api.GetPing)
