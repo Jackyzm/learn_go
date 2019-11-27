@@ -1,0 +1,31 @@
+{
+    "editor.wordWrap": "on",
+    "editor.minimap.renderCharacters": false,
+    "editor.minimap.enabled": false,
+    // "terminal.external.osxExec": "iTerm.app",
+    "go.useLanguageServer": true,
+    "go.docsTool": "gogetdoc",
+    "go.buildOnSave": "workspace",
+    "go.lintOnSave": "workspace",
+    "go.vetOnSave": "workspace",
+    "go.buildTags": "",
+    "go.buildFlags": [],
+    "go.lintFlags": [],
+    "go.vetFlags": [],
+    "go.coverOnSave": false,
+    "go.useCodeSnippetsOnFunctionSuggest": false,
+    "go.formatOnSave": true,
+    "go.formatTool": "goreturns",
+    // "go.goroot": "/usr/local/go",
+    // "go.gopath": "/Users/zengmin/.go",
+    "go.gocodeAutoBuild": false,
+    "window.zoomLevel": 0,
+    "cSpell.words": [
+        "gonic",
+        "swaggo"
+    ]
+    // "editor.formatOnSave": true,
+    // "[go]": {
+    //     "editor.formatOnSave": true
+    // }
+}

@@ -1,0 +1,25 @@
+info:
+  contact: {}
+  license: {}
+paths:
+  /api/ping:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200": {}
+        "500": {}
+      summary: 接口名称
+      tags:
+      - 测试
+  /api/ping1:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200": {}
+        "500": {}
+      summary: 接口名称
+      tags:
+      - 测试时
+swagger: "2.0"

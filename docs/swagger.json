@@ -1,0 +1,39 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {},
+        "license": {}
+    },
+    "paths": {
+        "/api/ping": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "测试"
+                ],
+                "summary": "接口名称",
+                "responses": {
+                    "200": {},
+                    "500": {}
+                }
+            }
+        },
+        "/api/ping1": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "测试时"
+                ],
+                "summary": "接口名称",
+                "responses": {
+                    "200": {},
+                    "500": {}
+                }
+            }
+        }
+    }
+}
