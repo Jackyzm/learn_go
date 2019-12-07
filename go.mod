@@ -3,6 +3,7 @@ module learn_go
 go 1.13
 
 require (
+	github.com/EDDYCJY/go-gin-example v0.0.0-20191007083155-a98c25f2172a
 	github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751
 	github.com/bwmarrin/snowflake v0.3.0
 	github.com/gin-gonic/gin v1.5.0

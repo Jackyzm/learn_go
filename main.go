@@ -9,18 +9,22 @@ import (
 	"github.com/gin-gonic/gin"
 
 	"learn_go/models"
+	"learn_go/pkg/setting"
 	"learn_go/routers"
 )
 
 func init() {
+	setting.Setup()
 	models.Setup()
 }
 
 func main() {
+	gin.SetMode(setting.ServerSetting.RunMode)
+
 	// Disable Console Color, you don't need console color when writing the logs to file.
 	gin.DisableConsoleColor()
 
-	t := time.Now().Format("2006-01-02 15:04:05") // 据说是go诞生时间 6-1-2-3-4-5
+	t := time.Now().Format("2006-01-02") // 据说是go诞生时间 6-1-2-3-4-5 2006-01-02 15:04:05
 
 	// Logging to a file.
 	f, _ := os.Create(fmt.Sprintf("./log/gin-%s.log", t))
@@ -32,5 +36,8 @@ func main() {
 	// gin.SetMode(gin.ReleaseMode)
 	// gin.SetMode(gin.DebugMode)
 
-	routers.GetRouters()
+	routersInit := routers.GetRouters()
+	routersInit.Run(":8080") // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
+
+	// routers.GetRouters()
 }

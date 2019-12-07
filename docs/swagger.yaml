@@ -22,6 +22,16 @@ paths:
       summary: 接口名称
       tags:
       - 测试时
+  /register:
+    put:
+      produces:
+      - application/json
+      responses:
+        "200": {}
+        "500": {}
+      summary: 注册
+      tags:
+      - 用户
   /user:
     put:
       produces:

@@ -35,6 +35,21 @@
                 }
             }
         },
+        "/register": {
+            "put": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "用户"
+                ],
+                "summary": "注册",
+                "responses": {
+                    "200": {},
+                    "500": {}
+                }
+            }
+        },
         "/user": {
             "put": {
                 "produces": [

@@ -7,6 +7,8 @@ import (
 
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
+
+	"learn_go/pkg/setting"
 )
 
 var db *mongo.Database
@@ -15,7 +17,8 @@ var client *mongo.Client
 // Setup connect database mongodb
 func Setup() {
 	// Set client options
-	clientOptions := options.Client().ApplyURI("mongodb://localhost:27017")
+	clientOptions := options.Client().ApplyURI(fmt.Sprintf("%s://%s", setting.Databasesetting.Type, setting.Databasesetting.Host))
+
 	// Connect to MongoDB
 	client, err := mongo.Connect(context.TODO(), clientOptions)
 	// Check the connection
@@ -25,9 +28,10 @@ func Setup() {
 		log.Fatal(err)
 	}
 
-	fmt.Println("Connected to MongoDB!")
+	db = client.Database(setting.Databasesetting.Name)
 
-	db = client.Database("testing")
+	fmt.Println("Connected to MongoDB!")
+	// log.Fatalf("Connected to MongoDB!")
 }
 
 // CloseDB closes database connection (unnecessary)

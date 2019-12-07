@@ -1,0 +1,32 @@
+{
+    "app": {
+        "PageSize": 10,
+        "JwtSecret": 233,
+        "ImageMaxSize": 5,
+        "ImageAllowExts": ".jpg,.jpeg,.png",
+        "LogSavePath": "logs/",
+        "LogSaveName": "log",
+        "LogFileExt": "log",
+        "TimeFormat": "20060102"
+    },
+    "server": {
+        "RunMode": "debug",
+        "HTTPPort": 8000,
+        "ReadTimeout": 60,
+        "WriteTimeout": 60
+    },
+    "database": {
+        "Type": "mongodb",
+        "User": "",
+        "Password": "",
+        "Host": "127.0.0.1:27017",
+        "Name": "learn"
+    },
+    "redis": {
+        "Host": "127.0.0.1:6379",
+        "Password": "",
+        "MaxIdle": 30,
+        "MaxActive": 30,
+        "IdleTimeout": 200
+    }
+}
