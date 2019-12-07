@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"time"
 )
 
 type config struct {
@@ -24,15 +25,15 @@ type app struct {
 	TimeFormat     string `json:"TimeFormat"`
 }
 
-// Appsetting app global setting
-var Appsetting = app{}
+// AppSetting app global setting
+var AppSetting = app{}
 
 type server struct {
 	// debug or release
-	RunMode      string `json:"RunMode"`
-	HTTPPort     int    `json:"HTTPPort"`
-	ReadTimeout  int    `json:"ReadTimeout"`
-	WriteTimeout int    `json:"WriteTimeout"`
+	RunMode      string        `json:"RunMode"`
+	HTTPPort     int           `json:"HTTPPort"`
+	ReadTimeout  time.Duration `json:"ReadTimeout"`
+	WriteTimeout time.Duration `json:"WriteTimeout"`
 }
 
 // ServerSetting app server setting
@@ -62,9 +63,14 @@ func Setup() {
 
 	var config config
 	json.Unmarshal([]byte(byteValue), &config)
-	Appsetting = config.App
+	AppSetting = config.App
 	ServerSetting = config.Server
 	Databasesetting = config.Database
+
+	AppSetting.ImageMaxSize = AppSetting.ImageMaxSize * 1024 * 1024
+	ServerSetting.ReadTimeout = ServerSetting.ReadTimeout * time.Second
+	ServerSetting.WriteTimeout = ServerSetting.WriteTimeout * time.Second
+	// RedisSetting.IdleTimeout = RedisSetting.IdleTimeout * time.Second
 
 	fmt.Println("Success to Load Setting!")
 }

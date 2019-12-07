@@ -16,8 +16,6 @@
     "go.useCodeSnippetsOnFunctionSuggest": false,
     "go.formatOnSave": true,
     "go.formatTool": "goreturns",
-    // "go.goroot": "/usr/local/go",
-    // "go.gopath": "/Users/zengmin/.go",
     "go.gocodeAutoBuild": false,
     "window.zoomLevel": 0,
     "cSpell.words": [
@@ -26,7 +24,6 @@
         "mongodb",
         "swaggo"
     ]
-    // "editor.formatOnSave": true,
     // "[go]": {
     //     "editor.formatOnSave": true
     // }

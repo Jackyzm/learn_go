@@ -56,7 +56,7 @@ type BadRes struct {
 // @Produce  json
 // @Success 200
 // @Failure 500
-// @Router /register [put]
+// @Router /register [post]
 func Register(c *gin.Context) {
 	var json Login
 	// c.BindJSON(&json)

@@ -23,7 +23,7 @@ paths:
       tags:
       - 测试时
   /register:
-    put:
+    post:
       produces:
       - application/json
       responses:

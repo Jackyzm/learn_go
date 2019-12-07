@@ -17,7 +17,10 @@ var client *mongo.Client
 // Setup connect database mongodb
 func Setup() {
 	// Set client options
-	clientOptions := options.Client().ApplyURI(fmt.Sprintf("%s://%s", setting.Databasesetting.Type, setting.Databasesetting.Host))
+	clientOptions := options.Client().ApplyURI(fmt.Sprintf("%s://%s",
+		setting.Databasesetting.Type,
+		setting.Databasesetting.Host,
+	))
 
 	// Connect to MongoDB
 	client, err := mongo.Connect(context.TODO(), clientOptions)

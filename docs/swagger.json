@@ -36,7 +36,7 @@
             }
         },
         "/register": {
-            "put": {
+            "post": {
                 "produces": [
                     "application/json"
                 ],
