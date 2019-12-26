@@ -1,3 +1,4 @@
+// 使用json无法添加注释 改用yaml
 {
     "app": {
         "PageSize": 10,
@@ -5,7 +6,6 @@
         "ImageMaxSize": 5,
         "ImageAllowExts": ".jpg,.jpeg,.png",
         "LogSavePath": "logs/",
-        "LogSaveName": "log",
         "LogFileExt": "log",
         "TimeFormat": "20060102"
     },

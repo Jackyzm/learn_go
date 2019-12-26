@@ -1,85 +1,57 @@
 package user
 
 import (
+	"encoding/json"
+	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 
-	"learn_go/models"
+	model "learn_go/model"
+	response "learn_go/pkg/response"
+	validate "learn_go/pkg/validate"
 )
-
-// AddUser 新增用户
-// @tags 用户
-// @Summary 接口名称
-// @Produce  json
-// @Success 200
-// @Failure 500
-// @Router /user [put]
-func AddUser(c *gin.Context) {
-	models.SetUser()
-	c.JSON(http.StatusOK, "success")
-}
-
-// Login Binding from JSON
-type Login struct {
-	Mobile   string `form:"mobile" json:"mobile" binding:"required"`
-	Password string `form:"password" json:"password" binding:"required"`
-}
-
-// SuccessRes Res
-type SuccessRes struct {
-	Code    int         `json:"code"`
-	Data    interface{} `json:"data"`
-	Success bool        `json:"success"`
-}
-
-// BadRes Res
-type BadRes struct {
-	Code    int    `json:"code"`
-	Success bool   `json:"success"`
-	Msg     string `json:"msg"`
-}
-
-// Response setting gin.JSON
-// func (c *gin.Context) Response(httpCode, errCode int, data interface{}) {
-// 	c.JSON(httpCode, Response{
-// 		Code: errCode,
-// 		Msg:  e.GetMsg(errCode),
-// 		Data: data,
-// 	})
-// 	return
-// }
 
 // Register 注册
 // @tags 用户
 // @Summary 注册
 // @Produce  json
+// @Param Login body model.Login true "登陆"
 // @Success 200
 // @Failure 500
 // @Router /register [post]
 func Register(c *gin.Context) {
-	var json Login
-	// c.BindJSON(&json)
-	if err := c.ShouldBindJSON(&json); err != nil {
-		c.JSON(http.StatusBadRequest, BadRes{
-			Code:    http.StatusBadRequest,
-			Success: false,
-			Msg:     err.Error(),
-		})
+	var login model.Login
+	response := response.Gin{C: c}
+
+	err := c.ShouldBindJSON(&login)
+	if err != nil {
+		response.SetBadResponse(http.StatusBadRequest, err.Error())
 		return
 	}
 
-	// fmt.Println(json.Mobile, json.Password, json)
+	reqBody, _ := json.Marshal(login)
+	log.Println(string(reqBody))
 
-	c.JSON(http.StatusOK, SuccessRes{
-		Code:    http.StatusOK,
-		Success: true,
-		Data: map[string]interface{}{
-			"mobile":   json.Mobile,
-			"password": json.Password,
-		},
-	})
-	// mobile := c.PostForm("mobile")
-	// password := c.PostForm("password")
-	// fmt.Println(mobile, password)
+	err = validate.VerifyMobile(login.Mobile)
+	if err != nil {
+		response.SetBadResponse(http.StatusBadRequest, err.Error())
+		return
+	}
+
+	err = validate.VerifyPwd(login.Password)
+	if err != nil {
+		response.SetBadResponse(http.StatusBadRequest, err.Error())
+		return
+	}
+
+	err = login.Register()
+
+	if err != nil {
+		log.Println(err.Error())
+		response.SetBadResponse(http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	response.SetSuccessResponse(http.StatusOK, "注册成功")
 }

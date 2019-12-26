@@ -44,24 +44,40 @@
                     "用户"
                 ],
                 "summary": "注册",
+                "parameters": [
+                    {
+                        "description": "登陆",
+                        "name": "Login",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/model.Login"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {},
                     "500": {}
                 }
             }
-        },
-        "/user": {
-            "put": {
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "用户"
-                ],
-                "summary": "接口名称",
-                "responses": {
-                    "200": {},
-                    "500": {}
+        }
+    },
+    "definitions": {
+        "model.Login": {
+            "type": "object",
+            "required": [
+                "mobile",
+                "password"
+            ],
+            "properties": {
+                "mobile": {
+                    "description": "手机号",
+                    "type": "string"
+                },
+                "password": {
+                    "description": "密码",
+                    "type": "string"
                 }
             }
         }

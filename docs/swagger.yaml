@@ -1,3 +1,16 @@
+definitions:
+  model.Login:
+    properties:
+      mobile:
+        description: 手机号
+        type: string
+      password:
+        description: 密码
+        type: string
+    required:
+    - mobile
+    - password
+    type: object
 info:
   contact: {}
   license: {}
@@ -24,22 +37,20 @@ paths:
       - 测试时
   /register:
     post:
+      parameters:
+      - description: 登陆
+        in: body
+        name: Login
+        required: true
+        schema:
+          $ref: '#/definitions/model.Login'
+          type: object
       produces:
       - application/json
       responses:
         "200": {}
         "500": {}
       summary: 注册
-      tags:
-      - 用户
-  /user:
-    put:
-      produces:
-      - application/json
-      responses:
-        "200": {}
-        "500": {}
-      summary: 接口名称
       tags:
       - 用户
 swagger: "2.0"

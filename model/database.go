@@ -1,9 +1,10 @@
-package models
+package model
 
 import (
 	"context"
 	"fmt"
 	"log"
+	"time"
 
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -13,28 +14,33 @@ import (
 
 var db *mongo.Database
 var client *mongo.Client
+var userCol *mongo.Collection
 
 // Setup connect database mongodb
 func Setup() {
 	// Set client options
 	clientOptions := options.Client().ApplyURI(fmt.Sprintf("%s://%s",
-		setting.Databasesetting.Type,
-		setting.Databasesetting.Host,
+		setting.DatabaseSetting.Type,
+		setting.DatabaseSetting.Host,
 	))
 
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+
 	// Connect to MongoDB
-	client, err := mongo.Connect(context.TODO(), clientOptions)
+	client, err := mongo.Connect(ctx, clientOptions)
 	// Check the connection
-	err = client.Ping(context.TODO(), nil)
+	err = client.Ping(ctx, nil)
 
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal(err) // log.Fatal 输出后会中断程序的执行
 	}
 
-	db = client.Database(setting.Databasesetting.Name)
+	db = client.Database(setting.DatabaseSetting.Name)
+
+	userCol = db.Collection("user")
 
 	fmt.Println("Connected to MongoDB!")
-	// log.Fatalf("Connected to MongoDB!")
 }
 
 // CloseDB closes database connection (unnecessary)

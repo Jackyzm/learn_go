@@ -1,0 +1,27 @@
+app:
+    PageSize: 10
+    JwtSecret: 233
+    ImageMaxSize: 5
+    ImageAllowExts: ".jpg,.jpeg,.png"
+    LogSavePath: "./logs/"
+    LogFileExt: "log"
+    # "2006-01-02-15:04" 据说是go诞生时间 6-1-2-3-4-5 2006-01-02 15:04:05
+    TimeFormat: "2006-01-02T15:04:05"
+server:
+    # debug or release
+    RunMode: "debug"
+    HTTPPort: 8000
+    ReadTimeout: 60
+    WriteTimeout: 60
+database: 
+    Type: "mongodb"
+    User: ""
+    Password: ""
+    Host: "127.0.0.1:27017"
+    Name: "learn"
+redis:
+    Host: "127.0.0.1:6379"
+    Password: ""
+    MaxIdle: 30
+    MaxActive: 30
+    IdleTimeout: 200

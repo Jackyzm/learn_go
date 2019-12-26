@@ -1,71 +1,70 @@
 package setting
 
 import (
-	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"os"
 	"time"
+
+	"gopkg.in/yaml.v2"
 )
 
 type config struct {
-	App      app      `json:"app"`
-	Server   server   `json:"server"`
-	Database database `json:"database"`
+	App      app      `yaml:"app"`
+	Server   server   `yaml:"server"`
+	Database database `yaml:"database"`
 }
 
 type app struct {
-	PageSize       int    `json:"PageSize"`
-	JwtSecret      int    `json:"JwtSecret"`
-	ImageMaxSize   int    `json:"ImageMaxSize"`
-	ImageAllowExts string `json:"ImageAllowExts"`
-	LogSavePath    string `json:"LogSavePath"`
-	LogSaveName    string `json:"LogSaveName"`
-	LogFileExt     string `json:"LogFileExt"`
-	TimeFormat     string `json:"TimeFormat"`
+	PageSize       int    `yaml:"PageSize"`
+	JwtSecret      int    `yaml:"JwtSecret"`
+	ImageMaxSize   int    `yaml:"ImageMaxSize"`
+	ImageAllowExts string `yaml:"ImageAllowExts"`
+	LogSavePath    string `yaml:"LogSavePath"`
+	LogFileExt     string `yaml:"LogFileExt"`
+	TimeFormat     string `yaml:"TimeFormat"`
 }
 
 // AppSetting app global setting
 var AppSetting = app{}
 
 type server struct {
-	// debug or release
-	RunMode      string        `json:"RunMode"`
-	HTTPPort     int           `json:"HTTPPort"`
-	ReadTimeout  time.Duration `json:"ReadTimeout"`
-	WriteTimeout time.Duration `json:"WriteTimeout"`
+	RunMode      string        `yaml:"RunMode"`
+	HTTPPort     int           `yaml:"HTTPPort"`
+	ReadTimeout  time.Duration `yaml:"ReadTimeout"`
+	WriteTimeout time.Duration `yaml:"WriteTimeout"`
 }
 
 // ServerSetting app server setting
 var ServerSetting = server{}
 
 type database struct {
-	Type     string `json:"Type"`
-	User     string `json:"User"`
-	Password string `json:"Password"`
-	Host     string `json:"Host"`
-	Name     string `json:"Name"`
+	Type     string `yaml:"Type"`
+	User     string `yaml:"User"`
+	Password string `yaml:"Password"`
+	Host     string `yaml:"Host"`
+	Name     string `yaml:"Name"`
 }
 
-// Databasesetting app database setting
-var Databasesetting = database{}
+// DatabaseSetting app database setting
+var DatabaseSetting = database{}
 
 // Setup init setting
 func Setup() {
-	jsonFile, err := os.Open("config/config.json")
+	content, err := ioutil.ReadFile("config/config.yaml")
+
+	if err != nil {
+		fmt.Println(err)
+	}
+	var config config
+
+	err = yaml.Unmarshal(content, &config)
 	if err != nil {
 		fmt.Println(err)
 	}
 
-	defer jsonFile.Close()
-
-	byteValue, _ := ioutil.ReadAll(jsonFile)
-
-	var config config
-	json.Unmarshal([]byte(byteValue), &config)
 	AppSetting = config.App
 	ServerSetting = config.Server
-	Databasesetting = config.Database
+	DatabaseSetting = config.Database
 
 	AppSetting.ImageMaxSize = AppSetting.ImageMaxSize * 1024 * 1024
 	ServerSetting.ReadTimeout = ServerSetting.ReadTimeout * time.Second
