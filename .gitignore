@@ -1,4 +1,6 @@
 .DS_Store
 
+.idea
 /logs
 __debug_bin
+go.sum

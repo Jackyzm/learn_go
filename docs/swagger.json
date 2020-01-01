@@ -35,6 +35,40 @@
                 }
             }
         },
+        "/login": {
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "用户"
+                ],
+                "summary": "登陆",
+                "parameters": [
+                    {
+                        "description": "登陆",
+                        "name": "Account",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/model.Account"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功",
+                        "schema": {
+                            "$ref": "#/definitions/model.UserInfo"
+                        }
+                    },
+                    "400": {
+                        "description": "参数错误"
+                    }
+                }
+            }
+        },
         "/register": {
             "post": {
                 "produces": [
@@ -47,24 +81,28 @@
                 "parameters": [
                     {
                         "description": "登陆",
-                        "name": "Login",
+                        "name": "Account",
                         "in": "body",
                         "required": true,
                         "schema": {
                             "type": "object",
-                            "$ref": "#/definitions/model.Login"
+                            "$ref": "#/definitions/model.Account"
                         }
                     }
                 ],
                 "responses": {
-                    "200": {},
-                    "500": {}
+                    "200": {
+                        "description": "成功"
+                    },
+                    "400": {
+                        "description": "参数错误"
+                    }
                 }
             }
         }
     },
     "definitions": {
-        "model.Login": {
+        "model.Account": {
             "type": "object",
             "required": [
                 "mobile",
@@ -77,6 +115,23 @@
                 },
                 "password": {
                     "description": "密码",
+                    "type": "string"
+                }
+            }
+        },
+        "model.UserInfo": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "description": "id",
+                    "type": "string"
+                },
+                "mobile": {
+                    "description": "手机号",
+                    "type": "string"
+                },
+                "userName": {
+                    "description": "用户名",
                     "type": "string"
                 }
             }

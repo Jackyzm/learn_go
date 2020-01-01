@@ -33,7 +33,7 @@ func Setup() {
 	err = client.Ping(ctx, nil)
 
 	if err != nil {
-		log.Fatal(err) // log.Fatal 输出后会中断程序的执行
+		log.Fatal("mongo 连接失败：", err) // log.Fatal 输出后会中断程序的执行
 	}
 
 	db = client.Database(setting.DatabaseSetting.Name)

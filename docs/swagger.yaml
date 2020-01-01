@@ -1,5 +1,5 @@
 definitions:
-  model.Login:
+  model.Account:
     properties:
       mobile:
         description: 手机号
@@ -10,6 +10,18 @@ definitions:
     required:
     - mobile
     - password
+    type: object
+  model.UserInfo:
+    properties:
+      id:
+        description: id
+        type: string
+      mobile:
+        description: 手机号
+        type: string
+      userName:
+        description: 用户名
+        type: string
     type: object
 info:
   contact: {}
@@ -35,21 +47,45 @@ paths:
       summary: 接口名称
       tags:
       - 测试时
+  /login:
+    post:
+      parameters:
+      - description: 登陆
+        in: body
+        name: Account
+        required: true
+        schema:
+          $ref: '#/definitions/model.Account'
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            $ref: '#/definitions/model.UserInfo'
+        "400":
+          description: 参数错误
+      summary: 登陆
+      tags:
+      - 用户
   /register:
     post:
       parameters:
       - description: 登陆
         in: body
-        name: Login
+        name: Account
         required: true
         schema:
-          $ref: '#/definitions/model.Login'
+          $ref: '#/definitions/model.Account'
           type: object
       produces:
       - application/json
       responses:
-        "200": {}
-        "500": {}
+        "200":
+          description: 成功
+        "400":
+          description: 参数错误
       summary: 注册
       tags:
       - 用户
