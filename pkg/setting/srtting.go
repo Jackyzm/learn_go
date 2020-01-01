@@ -16,7 +16,7 @@ type config struct {
 
 type app struct {
 	PageSize       int    `yaml:"PageSize"`
-	JwtSecret      int    `yaml:"JwtSecret"`
+	JwtSecret      string `yaml:"JwtSecret"`
 	ImageMaxSize   int    `yaml:"ImageMaxSize"`
 	ImageAllowExts string `yaml:"ImageAllowExts"`
 	LogSavePath    string `yaml:"LogSavePath"`

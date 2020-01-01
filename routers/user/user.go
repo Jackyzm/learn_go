@@ -9,6 +9,7 @@ import (
 
 	model "learn_go/model"
 	response "learn_go/pkg/response"
+	"learn_go/pkg/utils"
 	"learn_go/pkg/validate"
 )
 
@@ -85,11 +86,14 @@ func Login(c *gin.Context) {
 		return
 	}
 
-	log.Println(userInfo)
-	response.SetSuccessResponse(http.StatusOK, userInfo)
-	// map[string]interface{}{
-	// 	"mobile":   result.Mobile,
-	// 	"userName": result.UserName,
-	// 	"id":       result.ID,
-	// }
+	token, err := utils.GenerateToken(userInfo)
+	if err != nil {
+		log.Println("error:" + err.Error())
+		response.SetBadResponse(http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	response.SetSuccessResponse(http.StatusOK, map[string]interface{}{
+		"access_token": token,
+	})
 }

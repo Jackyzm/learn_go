@@ -38,6 +38,7 @@ func GetRouters() *gin.Engine {
 
 	route := router.Group("/api")
 	{
+		// route.Use(middleware.jwt())
 		route.GET("/ping", api.GetPing)
 	}
 
