@@ -60,7 +60,7 @@ func Login(c *gin.Context) {
 	response := response.Gin{C: c}
 
 	err := c.ShouldBindJSON(&account)
-	log.Println(err)
+
 	reqBody, _ := json.Marshal(account)
 	log.Println(string(reqBody))
 
@@ -71,7 +71,7 @@ func Login(c *gin.Context) {
 		return
 	}
 
-	userInfo, account, err := account.Login()
+	userInfo, accountDB, err := account.Login()
 
 	if err != nil {
 		log.Println("error:" + err.Error())
@@ -79,7 +79,7 @@ func Login(c *gin.Context) {
 		return
 	}
 
-	if account.Password != account.Password {
+	if account.Password != accountDB.Password {
 		log.Println("error:密码错误")
 		response.SetBadResponse(http.StatusInternalServerError, "密码错误")
 		return

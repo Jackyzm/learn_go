@@ -94,7 +94,7 @@ type ModelFieldTran map[string]string
 func FieldTrans() ModelFieldTran {
 	m := ModelFieldTran{}
 	m["Mobile"] = "手机号"
-	m["Password"] = "用户密码"
+	m["Password"] = "密码"
 	m["Email"] = "邮箱"
 	return m
 }

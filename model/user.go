@@ -18,8 +18,8 @@ type UserInfo struct {
 
 // Account Binding from JSON
 type Account struct {
-	Mobile   string `json:"mobile" binding:"required,mobile"` // 手机号
-	Password string `json:"password" binding:"required"`      // 密码
+	Mobile   string `json:"mobile" binding:"required,mobile"`     // 手机号
+	Password string `json:"password" binding:"required,password"` // 密码
 }
 
 // Register user register
