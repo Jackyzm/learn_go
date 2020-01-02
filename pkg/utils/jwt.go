@@ -11,14 +11,20 @@ import (
 
 var signature = []byte(setting.AppSetting.JwtSecret)
 
-// Claims Claims
+// Claims jwt payload 部分
 type Claims struct {
 	UserInfo *model.UserInfo `json:"userInfo"`
 	jwt.StandardClaims
 }
 
+// Token 返回前端token定义
+type Token struct {
+	AccessToken string        `json:"access_token"`
+	ExpiresIn   time.Duration `json:"expires_in"`
+}
+
 // GenerateToken 设置jwt
-func GenerateToken(UserInfo model.UserInfo) (string, error) {
+func GenerateToken(UserInfo model.UserInfo) (Token, error) {
 	nowTime := time.Now()
 	expireTime := nowTime.Add(3 * time.Hour)
 
@@ -34,9 +40,14 @@ func GenerateToken(UserInfo model.UserInfo) (string, error) {
 	}
 
 	tokenClaims := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	token, err := tokenClaims.SignedString(signature)
+	AccessToken, err := tokenClaims.SignedString(signature)
 
-	return token, err
+	resToken := Token{
+		AccessToken: AccessToken,
+		ExpiresIn:   3 * time.Hour / 1e9,
+	}
+
+	return resToken, err
 }
 
 // ParseToken 解析jwt

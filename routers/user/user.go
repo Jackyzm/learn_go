@@ -93,7 +93,5 @@ func Login(c *gin.Context) {
 		return
 	}
 
-	response.SetSuccessResponse(http.StatusOK, map[string]interface{}{
-		"access_token": token,
-	})
+	response.SetSuccessResponse(http.StatusOK, token)
 }

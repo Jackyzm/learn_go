@@ -25,7 +25,7 @@ type BadResponse struct {
 
 // SetBadResponse bad response
 func (G *Gin) SetBadResponse(httpCode int, errMsg string) {
-	G.C.JSON(httpCode, BadResponse{
+	G.C.AbortWithStatusJSON(httpCode, BadResponse{
 		Code:    httpCode,
 		Msg:     errMsg,
 		Success: false,
@@ -34,7 +34,7 @@ func (G *Gin) SetBadResponse(httpCode int, errMsg string) {
 
 // SetSuccessResponse success response
 func (G *Gin) SetSuccessResponse(httpCode int, data interface{}) {
-	G.C.JSON(httpCode, SuccessResponse{
+	G.C.AbortWithStatusJSON(httpCode, SuccessResponse{
 		Code:    httpCode,
 		Data:    data,
 		Success: true,
