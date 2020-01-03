@@ -1,7 +1,6 @@
 package user
 
 import (
-	"encoding/json"
 	"log"
 	"net/http"
 
@@ -27,9 +26,6 @@ func Register(c *gin.Context) {
 
 	err := c.ShouldBindJSON(&account)
 
-	reqBody, _ := json.Marshal(account)
-	log.Println(string(reqBody))
-
 	if err != nil {
 		errstr := validate.ValidatorError(err)
 		log.Println("错误：" + errstr)
@@ -45,7 +41,17 @@ func Register(c *gin.Context) {
 		return
 	}
 
-	response.SetSuccessResponse(http.StatusOK, "注册成功")
+	var userInfo model.UserInfo
+	userInfo, _ = account.GetUser()
+
+	token, err := utils.GenerateToken(userInfo)
+	if err != nil {
+		log.Println("error:" + err.Error())
+		response.SetBadResponse(http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	response.SetSuccessResponse(http.StatusOK, token)
 }
 
 // Login 登陆
@@ -62,8 +68,9 @@ func Login(c *gin.Context) {
 
 	err := c.ShouldBindJSON(&account)
 
-	reqBody, _ := json.Marshal(account)
-	log.Println(string(reqBody))
+	// 敏感信息 不打印
+	// reqBody, _ := json.Marshal(account)
+	// log.Println(string(reqBody))
 
 	if err != nil {
 		errstr := validate.ValidatorError(err)

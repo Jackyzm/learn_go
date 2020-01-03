@@ -43,7 +43,7 @@ func SetUp() {
 
 		// 注册验证规则
 		v.RegisterValidation("password", func(fl validator.FieldLevel) bool {
-			regular := "^[a-z0-9_-]{6,18}$"
+			regular := "^.{6,18}$"
 			reg := regexp.MustCompile(regular)
 			if reg.MatchString(fl.Field().String()) {
 				return true
